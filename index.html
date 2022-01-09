@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Music Player |</title>
+    
+</head>
+<body>
+    <section class="below-player">
+        <div class="below-player-inner">
+            <div class="image-title">
+                <span class="image-bottom"></span>
+                <div class="title-name">
+                    <a href="#" id="music-title"></a>
+                    <a href="#" id="music-name"></a>
+                </div>
+            </div>
+            <div class="below-controler">
+                <i class="fas fa-retweet"></i>
+                <i class="fas fa-fast-backward" id="prev"></i>
+                <div class="play-pause">
+                    <i title="Play beat" class="fas fa-play-circle"></i>
+                   <i title="Pause beat" class="fas fa-pause-circle"></i>
+                </div>
+                <i class="fas fa-fast-forward" id="next"></i>
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <div class="below-progress">
+                <div class="below-progress-bar">
+                    
+                </div>
+                <div class="below-timer">
+                    <span class="curr-time">0.00</span>                
+                    <span class="tot-time">4.00</span>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="middleplayer">
+        <div class="player-card">
+            <div class="card">
+                <div class="card-top">
+                    <i class="fas fa-angle-down"></i>
+                    <p class="main-text">Now Playing</p>
+                    <i class="fas fa-list"></i>
+                </div>
+                <div class="card-image">
+                    <div class="playing">
+                        <i title="Play beat" class="fas fa-play-circle"></i>
+                       <i title="Pause beat" class="fas fa-pause-circle"></i>
+                    </div>
+                </div>
+
+                <div class="music-title">
+                    <h3 class="musicname" id="musicname"></h3>
+                    <a href="#" class="musictitle"></a>
+                </div>
+               <span id="main-controls">
+                <audio id="audio" src="" controls></audio>
+               </span>
+
+                <div class="progress-area">
+                    <div class="progress-bar">    
+                                      
+                    </div>
+                    <div class="timer">
+                        <span class="curren-time">0:00</span>
+                        <span class="total-time"></span>
+                    </div>
+                </div>
+                <div class="controls">
+                    <i class="fas fa-retweet" title="Playlist"></i>
+                    <i class="fas fa-fast-backward" id="prev"></i>
+                    <div class="play-pause">
+                        <i title="Play beat" class="fas fa-play-circle"></i>
+                       <i title="Pause beat" class="fas fa-pause-circle"></i>
+                    </div>
+                    <i class="fas fa-fast-forward" id="next"></i>
+                    <i class="fas fa-stream"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/music.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            let key = 0;
+            var pauseicon = $(".fa-pause-circle");
+            pauseicon.hide();
+            var playicon = $(".fa-play-circle");
+            $(".below-player").hide();
+           
+            var musicImg = $(".card-image");
+
+            var musicName = $("#musicname");
+
+            var musicTitle = $(".musictitle");
+            var musicControls = $("#audio");
+            var progressArea = $(".progress-bar");
+
+            var progressBar = $(".progress-area");
+
+            var repeatBtn = $(".fa-retweet");
+
+
+         
+           function playMusic(){
+            playicon.hide();
+                pauseicon.show();
+                $("#audio")[0].play();
+                $(".below-player").slideDown(3000);
+           }
+
+           function pauseMusic(){
+            playicon.show();
+                pauseicon.hide();
+                $("#audio")[0].pause();
+                $(".below-player").show();
+           }
+           
+ 
+           
+
+           function loadMusic(key){
+                musicName.text(song_list[key].name);
+            
+            musicTitle.text(song_list[key].title); 
+            musicImg.html("<img src='images/"+song_list[key].img + " ' alt='image one' class='img'>");
+            musicControls.attr("src","songs/"+ song_list[key].src +"") ;
+
+            $(".image-bottom").html("<img src='images/"+song_list[key].img + " ' alt='image one' class='img'>")
+
+            $("#music-title").text(song_list[key].title);
+            $("#music-name").text(song_list[key].name);
+
+            }
+           loadMusic(key);
+
+
+           $("#audio").on('timeupdate',function(e){
+             var currentTime = e.target.currentTime;
+             var duration = e.target.duration;
+
+             let progressWidth = (currentTime/duration) * 100;
+
+             progressArea.css("width",`${progressWidth}%`);
+             
+              let currentMin = Math.floor(currentTime / 60);
+              let currentSec = Math.floor(currentTime % 60);
+              if(currentSec < 10){
+                  currentSec = `0${currentSec}`;
+              }
+              $(".curren-time").text(`${currentMin}:${currentSec}`);
+
+           
+         });      
+
+         $("#audio").on('loadeddata',function(e){
+              let audioDuration = e.target.duration;
+              let totalMin = Math.floor(audioDuration / 60);
+              let totalSec = Math.floor(audioDuration % 60);
+              if(totalSec < 10){
+                  totalSec = `0${totalSec}`;
+              }
+              $(".total-time").text(`${totalMin}:${totalSec}`);
+             
+         });    
+
+         
+              
+              
+         progressBar.on('click', function(e){
+             let pro =progressArea;
+             let clickedoffsetX = e.offsetX;
+             let bar = pro.width();
+             var duration = audio.duration;
+             audio.currentTime =  ((bar /clickedoffsetX) * duration); 
+              console.log(clickedoffsetX);
+                  
+         });          
+
+        
+    
+
+         repeatBtn.click(function(){
+             let getClass = repeatBtn.attr("class");
+             switch(getClass){
+                 case "fas fa-retweet":
+                     repeatBtn.attr("class","fas fa-redo");
+                     repeatBtn.attr("title","Repeat");
+                     break;
+                 case "fas fa-redo":
+                     repeatBtn.attr("class","fas fa-random");
+                     repeatBtn.attr("title","Shuffle playlist");
+                     break;
+                 case "fas fa-random":
+                     repeatBtn.attr("class","fas fa-retweet");
+                     repeatBtn.attr("title","Playlist");
+                     break;
+             }
+         });
+     
+         musicControls.on('ended', function(){
+            let getClass = repeatBtn.attr("class");
+             switch(getClass){
+                 case "fas fa-retweet":
+                        key++;
+                        var lent = song_list.length;
+                        if(key >= lent){
+                        
+                            key = 0;
+                        }
+                        else{
+                        key = key;
+                        } 
+                        
+                        loadMusic(key);
+                        playMusic();
+                     break;
+                 case "fas fa-redo":
+                     musicControls.currentTime = 0;
+                     loadMusic(key);
+                     playMusic();
+                     break;
+                 case "fas fa-random":
+                    let randIndex = Math.floor((Math.random() * song_list.length) + 1);
+                    do{
+                        randIndex = Math.floor((Math.random() * song_list.length) + 1);
+                    }while(key == randIndex);
+                    key = randIndex;
+                    loadMusic(key);
+                    playMusic();
+                     break;
+             }
+         });
+
+
+      
+
+          
+          
+           playicon.click(function(){
+               playMusic();
+            });
+            pauseicon.click(function(){
+                pauseMusic();
+            });
+        
+            
+           
+            $(".fa-fast-forward").click(function(){
+               
+                key++;
+                var lent = song_list.length;
+                if(key >= lent){
+                
+                    key = 0;
+                }
+                else{
+                   key = key;
+                } 
+                
+               loadMusic(key);
+               playMusic();
+            });
+            $(".fa-fast-backward").click(function(){
+               
+                key--;
+                if(key < 0){
+                
+                    key =  song_list.length -1;
+                    loadMusic(key);
+               playMusic();
+                }
+                else{
+                   key = key;
+                   loadMusic(key);
+               playMusic();
+                } 
+                
+               
+            });
+          
+        });
+    </script>
+</body>
+</html>

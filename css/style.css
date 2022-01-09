@@ -1,0 +1,277 @@
+@import url('../css/fonts.css');
+*{
+    position: relative;
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins',sans-serif;
+    position: relative;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(65, 65, 65);
+}
+
+.middleplayer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.middleplayer .player-card{
+    margin: 3rem;
+    width: 20rem;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 1px 4px 15px rgb(196, 196, 196);
+}
+
+.middleplayer .player-card .card{
+    overflow: hidden;   
+    max-width: 20rem;
+    padding: 1rem 1.8rem 2rem 1.8rem;
+}
+
+
+.middleplayer .player-card .card .card-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+
+
+.middleplayer .player-card .card .card-top i{
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: rgb(65, 65, 65);
+}
+
+
+.middleplayer .player-card .card .card-top p{
+    font-size: 1.1rem;
+    font-weight: 100;
+    color: rgb(65, 65, 65);
+}
+.middleplayer .player-card .card .card-image{ 
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+.middleplayer .player-card .card .card-image .playing{
+    position: absolute;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
+.middleplayer .player-card .card .card-image .playing i::before{
+  opacity: 1;
+  font-size: 5rem;
+  cursor: pointer;
+  color: rgb(209, 209, 209);
+  border: 5px solid rgb(202, 202, 202);
+  padding: .2rem;
+  border-radius: 50%;
+  transition: all 1.5s ease;
+  z-index: 900;
+  box-shadow: 1px 2px 13px rgb(97, 178, 202),
+              -1px 2px 13px rgb(59, 59, 59);
+}
+.middleplayer .player-card .card .card-image:hover .playing i::before{
+    opacity: 1;
+}
+
+.middleplayer .player-card .card .card-image img{
+    width: 18rem;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 1px 4px 15px rgb(235, 235, 235);
+}
+
+
+.middleplayer .player-card .card .music-title{
+    text-align: center;
+    padding-bottom: 1.1rem;
+}
+
+.middleplayer .player-card .card .music-title h3{
+    font-size: 1.3rem;
+    color: rgb(105, 105, 105);
+    font-weight: 600;
+    margin-bottom: .1rem;
+    font-family: 'Nunito',sans-serif;
+}
+
+.progress-area {
+    height: .5rem;
+    width: 100%;
+    border-radius: 20px;
+    background: rgb(211, 211, 211);
+    cursor: pointer;
+}
+
+
+.progress-area .progress-bar{
+    height: .5rem;
+    width: 0%;
+    border-radius: 20px;
+    background: rgb(63, 63, 187);
+    cursor: pointer;
+    position: relative;
+}
+
+
+.progress-bar::before{
+  content: "";
+   position: absolute;
+   height: 15px;
+   width: 15px;
+   border-radius: 50%;
+   top: 50%;
+   right: -5%;   
+   transform: translateY(-50%);
+   opacity: 0;
+   background: rgb(63, 63, 187);
+   transition: opacity 0.2s ease;
+}
+.progress-area:hover 
+.progress-bar::before{
+    opacity: 1;
+}
+
+.progress-area .timer{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat'sans-serif;
+    font-size: .9rem;
+    color: rgb(66, 66, 66);
+}
+.controls{
+    padding: 2.8rem .5rem .5rem .5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls i{
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: rgb(63, 63, 187);
+}
+
+.controls .play-pause i{
+    font-size: 3rem;
+}
+
+.below-player{
+    position: fixed;
+    height: 55%;
+    top: 88%;
+    width: 100%;
+    background: black;
+    z-index: 30;
+}
+
+.below-player .below-player-inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .3rem 3rem;
+}
+
+
+.below-player .below-player-inner .image-title{
+    display: flex;
+    align-items: center;
+}
+
+.below-player .below-player-inner .image-title img{
+    max-height: 50px;
+    max-width: 48px;
+    min-height: 50px;
+    min-width: 48px;
+    border-radius: 50%;
+    background: #fff;
+    padding: .1rem;
+    border: 5px solid #fff;
+    margin-right: .7rem;
+}
+
+.below-player .below-player-inner .image-title .title-name{
+    display: flex;
+    flex-direction: column;
+} 
+
+
+.below-player .below-player-inner .image-title .title-name a{
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.below-player .below-player-inner .below-controler {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.below-player .below-player-inner .below-controler i{
+    color: #fff;
+    padding: 0 1rem;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+
+
+.below-player .below-player-inner .below-controler .play-pause i{
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+
+.below-player .below-player-inner .below-progress{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+
+#main-controls #audio{
+    display: none;
+}
+
+
+
+@media(max-width: 750px){
+    .below-player .below-player-inner{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .below-player .below-player-inner .image-title .title-name a{
+     display: none;
+    }
+
+    .below-player .below-player-inner .below-controler {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+.below-player .below-player-inner .below-progress{
+    display: none;
+}
+
+    
+}
